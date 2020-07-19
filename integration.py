@@ -5,10 +5,13 @@ Created on Sat Jun 13 01:47:42 2020
 @author: Onkar
 """
 
-import pandas as pd
 import cv2
 import sys
 import pytesseract
+import pandas as pd
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 500)
+pd.set_option('display.width', 1000)
 
 all_words = pd.read_csv('all_mnemonic_words.csv')
 all_words = list(all_words['words'])
@@ -40,7 +43,10 @@ if __name__ == '__main__':
   text = pytesseract.image_to_string(im, config=config)
   #list_words = list(text) 
   # Print recognized text
-  
+
+#img_words are the indivisual words from the input image 
+img_words = text.split()
+''' 
 out = []
 buff = []
 for c in text:
@@ -54,9 +60,9 @@ else:
        out.append(''.join(buff))
 
 extracted_words = list(filter(None, out))
+'''
 
-
-common_words = [i for i in all_words if i in extracted_words]
+common_words = [i for i in all_words if i in img_words]
 
 
 
